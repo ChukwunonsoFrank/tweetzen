@@ -1,13 +1,5 @@
 <div>
-  <% if (user) { %>
-    <p>Hi, <%= user.username %></p>
-    <% if (user.photos !== undefined) { %>
-      <img src="<%= user.photos[0].value %>" alt="user_profile_picture" width="40" height="40" style="border-radius: 40px;">
-    <% } %>
-    <a href="/auth/twitter/login">Sign in</a>
-  <a href="/logout">Logout</a>
-  <% } else { %>
-  <a href="/auth/twitter/login">Sign in</a>
-  <a href="/logout">Logout</a>
-  <% } %>
+  <h1 class="text-4xl font-bold">Take a break from the noise</h1>
+  <p>Aggregate all your favourite creators tweets in one place.</p>
+  <a href="/auth/twitter/login">Sign in with Twitter</a>
 </div>

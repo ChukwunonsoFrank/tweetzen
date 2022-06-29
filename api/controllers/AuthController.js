@@ -1,7 +1,8 @@
 /** Auth controllers */
 
-const redirectUserToHomepage = (req, res) => {
-    res.redirect('/')
+const redirectUserToDashboard = (req, res) => {
+    const loggedInUsername = req.user.username
+    res.redirect(`/${loggedInUsername}`)
 }
 
 const logout = (req, res) => {
@@ -14,6 +15,6 @@ const logout = (req, res) => {
 }
 
 module.exports = {
-    redirectUserToHomepage,
+    redirectUserToDashboard,
     logout
 }
