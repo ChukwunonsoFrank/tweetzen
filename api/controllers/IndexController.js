@@ -1,7 +1,17 @@
-const view_homepage = (req, res) => {
-    res.render('pages/homepage')
+const viewHomepage = (req, res) => {
+    if (req.user) {
+        res.render('pages/homepage', {
+            user: req.user
+        })
+    } else {
+        res.render('pages/homepage', {
+            user: {
+                username: 'none'
+            }
+        })
+    }
 }
 
 module.exports = {
-    view_homepage
+    viewHomepage
 }
