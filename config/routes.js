@@ -23,5 +23,6 @@ router.get('/logout', AuthController.logout)
 
 // User routes
 router.get('/:username', UserController.viewDashboard)
+router.get('/tweet/id', UserController.searchForCreatorNameInFollowingList)
 
 module.exports = router
