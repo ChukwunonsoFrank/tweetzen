@@ -10,6 +10,7 @@ function passportConfig(passport) {
         callbackURL: 'http://localhost:1337/auth/twitter/callback',
       },
       function (token, tokenSecret, profile, cb) {
+        console.log(profile, token, tokenSecret)
         return cb(null, profile)
       }
     )
