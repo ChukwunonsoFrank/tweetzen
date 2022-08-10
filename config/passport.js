@@ -10,30 +10,29 @@ function passportConfig(passport) {
         consumerSecret: process.env.TWITTER_API_SECRET_KEY,
         callbackURL: 'http://localhost:1337/auth/twitter/callback',
       },
-      function (token, tokenSecret, profile, cb) {
+      async function (token, tokenSecret, profile, cb) {
         const { id, username, displayName, photos, _json } = profile
-        // let doesUserAlreadyExist = null
-        // User.findOne({
-        //   where: {
-        //     twitter_id: id,
-        //   },
-        // })
-        // .then((user) => {
-        //   if (user && user.twitter_id === id) {
-        //     doesUserAlreadyExist = true
-        //   }
-        // })
-        // .catch((err) => console.log(err))
-        // console.log(doesUserAlreadyExist)
-        
-        // User.create({
-        //   twitter_id: id,
-        //   username,
-        //   profile_img_url: photos[0].value,
-        //   name: displayName,
-        //   verified: _json.verified,
-        // }).then(user => console.log(user))
-        //   .catch(err => console.log(err))
+        const existingUser = await User.findOne({
+          where: {
+            twitter_id: id,
+          },
+        })
+
+        if (existingUser) {
+          return cb(null, profile)
+        }
+
+       try {
+        await User.create({
+          twitter_id: id,
+          username,
+          profile_image_url: photos[0].value,
+          name: displayName,
+          verified: _json.verified,
+        })
+       } catch (error) {
+         console.log('Unable to create a user', error)
+       }
 
         return cb(null, profile)
       }

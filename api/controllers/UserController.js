@@ -7,11 +7,7 @@ const viewDashboard = (req, res) => {
             user: req.user
         })
     } else {
-        res.render('pages/user/dashboard', {
-            user: {
-                username: 'none'
-            }
-        })
+        res.redirect('/')
     }
 }
 

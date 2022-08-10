@@ -1,7 +1,7 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = new Sequelize('postgres://postgres:hermit0910@127.0.0.1:5432/tweetzen')
 
-const User = sequelize.define('User', {
+const User = sequelize.define('users', {
     twitter_id: {
         type: DataTypes.INTEGER,
     },
@@ -11,7 +11,7 @@ const User = sequelize.define('User', {
     name: {
         type: DataTypes.STRING
     },
-    profile_img_url: {
+    profile_image_url: {
         type: DataTypes.STRING
     },
     verified: {
