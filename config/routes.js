@@ -12,13 +12,9 @@ router.get('/', IndexController.viewHomepage)
 
 // Auth routes
 router.get('/auth/twitter/login', passport.authenticate('twitter'))
-router.get(
-  '/auth/twitter/callback',
-  passport.authenticate('twitter', {
+router.get('/auth/twitter/callback', passport.authenticate('twitter', {
     failureRedirect: '/',
-  }),
-  AuthController.redirectUserToDashboard
-)
+}), AuthController.redirectUserToDashboard)
 router.get('/logout', AuthController.logout)
 
 // User routes

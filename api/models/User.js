@@ -1,21 +1,21 @@
-const Sequelize = require('sequelize')
-const db = require('../../config/datastore')
+const { Sequelize, DataTypes } = require('sequelize');
+const sequelize = new Sequelize('postgres://postgres:hermit0910@127.0.0.1:5432/tweetzen')
 
-const User = db.define('user', {
+const User = sequelize.define('User', {
     twitter_id: {
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
     },
     username: {
-        type: Sequelize.STRING
+        type: DataTypes.STRING
     },
     name: {
-        type: Sequelize.STRING
+        type: DataTypes.STRING
     },
     profile_img_url: {
-        type: Sequelize.STRING
+        type: DataTypes.STRING
     },
     verified: {
-        type: Sequelize.BOOLEAN
+        type: DataTypes.BOOLEAN
     },
 })
 

@@ -5,12 +5,11 @@ const dotenv = require('dotenv')
 const PORT = process.env.PORT || 1337
 const passport = require('passport')
 const session = require('express-session')
-const db = require('./config/datastore')
+const testDatabaseConnection = require('./config/datastore')
 
 // Database connection/authentication
-db.authenticate()
-  .then(() => console.log('Database connected...'))
-  .catch(err => console.log(`Error: ${err}`))
+testDatabaseConnection()
+
 
 dotenv.config()
 

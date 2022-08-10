@@ -1,4 +1,5 @@
 const TwitterStrategy = require('passport-twitter').Strategy
+const User = require('../api/models/User')
 
 /** Passport Setup */
 function passportConfig(passport) {
@@ -10,7 +11,30 @@ function passportConfig(passport) {
         callbackURL: 'http://localhost:1337/auth/twitter/callback',
       },
       function (token, tokenSecret, profile, cb) {
-        console.log(profile, token, tokenSecret)
+        const { id, username, displayName, photos, _json } = profile
+        // let doesUserAlreadyExist = null
+        // User.findOne({
+        //   where: {
+        //     twitter_id: id,
+        //   },
+        // })
+        // .then((user) => {
+        //   if (user && user.twitter_id === id) {
+        //     doesUserAlreadyExist = true
+        //   }
+        // })
+        // .catch((err) => console.log(err))
+        // console.log(doesUserAlreadyExist)
+        
+        // User.create({
+        //   twitter_id: id,
+        //   username,
+        //   profile_img_url: photos[0].value,
+        //   name: displayName,
+        //   verified: _json.verified,
+        // }).then(user => console.log(user))
+        //   .catch(err => console.log(err))
+
         return cb(null, profile)
       }
     )
