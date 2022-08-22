@@ -1,22 +1,21 @@
-/** Auth controllers */
+const User = require('../models/User')
 
-const redirectUserToDashboard = (req, res) => {
+exports.redirectUserToDashboard = async (req, res) => {
     const loggedInUsername = req.user.username
-    console.log(req.session)
+    const userInfoFromDB = await User.findOne({
+      where: {
+        username: loggedInUsername,
+      },
+    })
+    req.session.userID = userInfoFromDB.dataValues.id
     res.redirect(`/${loggedInUsername}`)
 }
 
-const logout = (req, res) => {
+exports.logout = (req, res) => {
   req.logout((err) => {
     if (err) {
       throw new Error(err)
     }
     res.redirect('/')
   })
-  console.log(req.session)
-}
-
-module.exports = {
-    redirectUserToDashboard,
-    logout
 }

@@ -1,7 +1,8 @@
 const { Client } = require('twitter-api-sdk')
 const client = new Client(process.env.TWITTER_BEARER_TOKEN)
+const Favourite = require('../models/Favourite')
 
-const viewDashboard = (req, res) => {
+exports.viewDashboard = (req, res) => {
     if (req.user) {
         res.render('pages/user/dashboard', {
             user: req.user
@@ -11,20 +12,28 @@ const viewDashboard = (req, res) => {
     }
 }
 
-const getTweetByID = async (req, res) => {
+exports.getTweetByID = async (req, res) => {
     const user = await client.users.findUserByUsername('elonmusk', {
         "user.fields": ["name", "profile_image_url", "username", "verified"]
     })
     res.json(user)
 }
 
-const searchForCreatorNameInFollowingList = async (req, res) => {
+exports.addCreatorToFeed = async (req, res) => {
+    const { id } = req.query
+    await Favourite.create({
+        favourites_twitter_id: id,
+        userId: req.session.userID
+    })
+}
+
+exports.searchForCreatorNameInFollowingList = async (req, res) => {
     let searchString = req.query.search_string
     
     async function getUsersFollowedByLoggedInUser (loggedInUserID) {
         const following = await client.users.usersIdFollowing(loggedInUserID, {
             max_results: 1000,
-            "user.fields": ['profile_image_url', 'name', 'username']
+            "user.fields": ['id', 'profile_image_url', 'name', 'username']
         })
         return following
     }
@@ -38,10 +47,4 @@ const searchForCreatorNameInFollowingList = async (req, res) => {
         }
     })
     res.json(usersFollowedByLoggedInUserThatMatch)
-}
-
-module.exports = {
-    viewDashboard,
-    getTweetByID,
-    searchForCreatorNameInFollowingList
 }

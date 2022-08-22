@@ -1,7 +1,3 @@
-const viewHomepage = (req, res) => {
+exports.viewHomepage = (req, res) => {
     res.render('pages/homepage')
-}
-
-module.exports = {
-    viewHomepage
 }
