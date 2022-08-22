@@ -22,10 +22,19 @@ exports.getTweetByID = async (req, res) => {
 
 exports.addCreatorToFeed = async (req, res) => {
     const { id } = req.query
-    await Favourite.create({
-        favourites_twitter_id: id,
-        userId: req.session.userID
+    const favouriteExists = await Favourite.findOne({
+        where: {
+            favourites_twitter_id: id
+        }
     })
+    if(favouriteExists) {
+        res.end('This favourite already exists. Please try adding a different user.')
+    } else {
+        await Favourite.create({
+            favourites_twitter_id: id,
+            userId: req.session.userID
+        })
+    }
 }
 
 async function removeUsersAlreadyInFavouritesList(req, matchedUsers) {
