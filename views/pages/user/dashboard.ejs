@@ -79,27 +79,6 @@
       )
     },
     methods: {
-      addCreatorToFeed: async function (creatorTwitterId) {
-        console.log('clicked...')
-        // const data = {
-        //   creatorTwitterId,
-        // }
-
-        // const options = {
-        //   method: 'POST',
-        //   headers: {
-        //     'Content-Type': 'application/json',
-        //   },
-        //   body: JSON.stringify(data),
-        // }
-
-        // try {
-        //   let res = await fetch('http://localhost:1337/user/creator/add')
-        //   const creators = await res.json()
-        // } catch (error) {
-        //   console.log('Could not add a new creator', error)
-        // }
-      },
       autosuggestCreatorNames: async function () {
         if (this.searchString.length === 0) {
           this.searchResultsHTML = ''
